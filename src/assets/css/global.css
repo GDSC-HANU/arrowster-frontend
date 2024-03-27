@@ -1,0 +1,9 @@
+@import url('~/assets/css/variables.css');
+
+* {
+  background-color: transparent;
+}
+
+body {
+  background-color: var(--primary-background-color);
+}

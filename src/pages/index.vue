@@ -2,7 +2,7 @@
   <NuxtLayout>
     <div>
       <h1 class="text-red-500">{{ counterStore.count }}</h1>
-      <button @click="counterStore.increment">Increment</button>
+      <UButton @click="counterStore.increment">Increment</UButton>
     </div>
   </NuxtLayout>
 </template>
@@ -12,5 +12,3 @@ import { useCounterStore } from '~/stores/counter'
 
 const counterStore = useCounterStore()
 </script>
-
-<style scoped></style>
