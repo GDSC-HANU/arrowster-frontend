@@ -42,6 +42,14 @@
             </div>
           </template>
 
+          <template #from_fee-data="{ row }">
+            <div>
+              <span>
+                {{ row.tuition_fee }}
+              </span>
+            </div>
+          </template>
+
           <template #ranking-data="{ row }">
             <div>
               <span>{{ `#${row.ranking < 10 ? '0' : ''}${row.ranking}` }}</span>
@@ -76,7 +84,7 @@ const columns = [
     sortable: true,
   },
   {
-    key: 'tuition_fee',
+    key: 'from_fee',
     label: 'Tuition Fee',
     sortable: true,
   },
@@ -138,9 +146,9 @@ const data = [
     avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
     sponsor: false,
     location: 'American',
-    tuition_fee: 'More than 20.000$',
-    from_fee: 10001,
-    to_fee: 20000,
+    tuition_fee: '1.001 - 5.000$',
+    from_fee: 1001,
+    to_fee: 5000,
     deadline: '01/04/2024',
     ranking: 1,
   },
@@ -150,9 +158,9 @@ const data = [
     avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
     sponsor: false,
     location: 'American',
-    tuition_fee: 'More than 20.000$',
-    from_fee: 10001,
-    to_fee: 20000,
+    tuition_fee: '5.001 - 10.000$',
+    from_fee: 5001,
+    to_fee: 10000,
     deadline: '01/04/2024',
     ranking: 1,
   },
