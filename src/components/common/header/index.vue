@@ -2,12 +2,7 @@
   <div class="w-full shadow-md px-8 py-4 text-black">
     <div class="max-w-[1280px] mx-auto my-0 flex justify-between items-center">
       <div>
-        <NuxtImg
-          format="webp"
-          width="160
-        "
-          src="/images/logo/Logo.svg"
-        />
+        <NuxtImg format="webp" width="160" src="/images/logo/Logo.svg" />
       </div>
       <ul class="flex gap-12 text-[18px]">
         <li>
