@@ -56,12 +56,7 @@
         />
       </UForm>
     </div>
-    <NuxtImg
-      format="webp"
-      width="160
-            "
-      src="/images/home/form_img.png"
-    />
+    <NuxtImg width="514" src="/images/home/form_img.png" />
   </div>
 </template>
 
