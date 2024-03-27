@@ -9,7 +9,7 @@
           src="/images/logo/Logo.svg"
         />
       </div>
-      <ul class="flex gap-12">
+      <ul class="flex gap-12 text-[18px]">
         <li>
           <nuxt-link to="/find-college">Find College</nuxt-link>
         </li>
