@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-[1280px] mx-auto my-0 flex justify-center items-center min-h-screen gap-16"
+    class="max-w-[1280px] mx-auto my-0 flex justify-center items-center screen-home gap-16"
   >
     <div class="max-w-[516px] flex flex-col gap-12">
       <h1 class="text-[48px] text-black font-bold">
