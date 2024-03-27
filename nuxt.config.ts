@@ -5,7 +5,15 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/ui',
-    '@nuxt/image'
+    '@nuxt/image',
+    [
+      '@nuxtjs/google-fonts',
+      {
+        families: {
+          'DM Sans': [400, 700]
+        }
+      }
+    ]
   ],
   srcDir: 'src',
   pinia: {
