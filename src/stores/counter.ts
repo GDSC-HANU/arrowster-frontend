@@ -1,10 +1,17 @@
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const name = ref('Eduardo')
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+import { defineStore } from 'pinia'
 
-  return { count, name, doubleCount, increment }
+export const useStore = defineStore('counter', {
+  state: () => {
+    return {
+      count: 0
+    }
+  },
+  actions: {
+    increment() {
+      this.count++
+    }
+  },
+  persist: {
+    storage: persistedState.localStorage
+  }
 })

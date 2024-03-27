@@ -1,8 +1,13 @@
 <template>
   <NuxtLayout>
     <div>
-      <h1 class="text-red-500">{{ counterStore.count }}</h1>
-      <UButton @click="counterStore.increment">Increment</UButton>
+      <ClientOnly>
+        <h1 class="text-red-500">{{ counterStore.count }}</h1>
+        <UButton @click="counterStore.increment">Increment</UButton>
+        <template #placeholder>
+          <h1>...loading</h1>
+        </template>
+      </ClientOnly>
     </div>
     <NuxtImg format="webp" width="200" src="/images/logo/Logo.svg" />
     <nuxt-link to="/login">login</nuxt-link>
@@ -10,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCounterStore } from '~/stores/counter'
+import { useStore } from '~/stores/counter'
 
-const counterStore = useCounterStore()
+const counterStore = useStore()
 </script>
