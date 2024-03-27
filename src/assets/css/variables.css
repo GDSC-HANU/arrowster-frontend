@@ -1,7 +1,3 @@
 :root {
   --primary-background-color: #f9f9f9;
 }
-
-html.dark {
-  --primary-background-color: #181818;
-}

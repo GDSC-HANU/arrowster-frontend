@@ -11,8 +11,5 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['./stores/**']
   },
-  colorMode: {
-    preference: 'dark'
-  },
   css: ['~/assets/css/global.css', '~/assets/css/variables.css']
 })
