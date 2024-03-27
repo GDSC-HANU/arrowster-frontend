@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  colorMode: {
+    preference: 'light'
+  },
   devtools: { enabled: true },
   modules: [
     '@pinia/nuxt',
@@ -19,5 +22,6 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['./stores/**']
   },
-  css: ['~/assets/css/global.css', '~/assets/css/variables.css']
+  css: ['~/assets/css/global.css', '~/assets/css/variables.css'],
+  plugins: ['~/plugins/theme.ts']
 })
