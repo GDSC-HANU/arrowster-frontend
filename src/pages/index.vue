@@ -9,7 +9,7 @@
         </template>
       </ClientOnly>
     </div>
-    <NuxtImg format="webp" width="200" src="/images/logo/Logo.svg" />
+
     <nuxt-link to="/login">login</nuxt-link>
   </NuxtLayout>
 </template>
