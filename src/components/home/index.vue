@@ -1,15 +1,11 @@
 <script setup lang="ts">
 const client = useSupabaseClient()
 const user = useSupabaseUser()
-const country = ref<string[]>([])
-const fetchCountries = async () => {
-  const { data: countries } = await client.from('location').select('country')
-  country.value = countries.map((countryData) => countryData.country)
-}
 
+const { fetchCountries, country } = useCountry()
 onMounted(fetchCountries)
 
-const courses = [
+const courses: string[] = [
   'Art & Design',
   'Business & Management',
   'Computers & Technology',
@@ -22,18 +18,43 @@ const courses = [
   'Trade & Careers'
 ]
 
-const gradeLevel = [`Bachelor's`, `Master's`]
-const state = reactive({
-  email: undefined,
-  password: undefined
+const budget: string[] = [
+  '500 - 1000$',
+  '1001 - 5000$',
+  '5001 - 10000$',
+  '10001 - 20000$',
+  'More than 20000$'
+]
+
+const gradeLevel: string[] = [`Bachelor's`, `Master's`]
+
+type FormState = {
+  gpa: number | null
+  selectedCourse: string | null
+  selectedGradeLevel: string | null
+  selectedCountry: string | null
+  seletedBudget: string | null
+}
+
+const formState: FormState = reactive({
+  gpa: null,
+  selectedCourse: null,
+  selectedGradeLevel: null,
+  selectedCountry: null,
+  seletedBudget: null
 })
 
 const selectedCourse = ref(courses[0])
-const selectedGradeLevel = ref(gradeLevel[0])
+const selectedGradeLevel = ref(null)
 const selectedCountry = ref(country[0])
 
-function onSubmit() {
-  console.log(state.email, state.password)
+const onSubmit = () => {
+  console.log(
+    formState.gpa,
+    formState.selectedCourse,
+    formState.selectedGradeLevel,
+    formState.selectedCountry
+  )
 }
 </script>
 
@@ -51,7 +72,7 @@ function onSubmit() {
       <UForm class="space-y-8 w-full" @submit="onSubmit">
         <UFormGroup name="gpa">
           <UInput
-            v-model="state.email"
+            v-model="formState.gpa"
             size="xl"
             color="white"
             variant="outline"
@@ -61,7 +82,7 @@ function onSubmit() {
 
         <UFormGroup name="course-preference">
           <USelectMenu
-            v-model="selectedCourse"
+            v-model="formState.selectedCourse"
             :options="courses"
             variant="outline"
             placeholder="Course Preference"
@@ -70,8 +91,10 @@ function onSubmit() {
         </UFormGroup>
         <UFormGroup name="course-preference">
           <USelectMenu
-            v-model="selectedGradeLevel"
-            :options="gradeLevel"
+            searchable
+            searchable-placeholder="Search a country..."
+            v-model="formState.selectedCountry"
+            :options="country"
             variant="outline"
             placeholder="Location"
             size="xl"
@@ -79,12 +102,19 @@ function onSubmit() {
         </UFormGroup>
         <UFormGroup name="course-preference">
           <USelectMenu
-            searchable
-            searchable-placeholder="Search a country..."
-            v-model="selectedCountry"
-            :options="country"
+            v-model="formState.selectedGradeLevel"
+            :options="gradeLevel"
             variant="outline"
-            placeholder="Choose your country"
+            placeholder="Grade Level"
+            size="xl"
+          />
+        </UFormGroup>
+        <UFormGroup name="course-preference">
+          <USelectMenu
+            v-model="formState.seletedBudget"
+            :options="budget"
+            variant="outline"
+            placeholder="Tuition Budget (in USD/year)"
             size="xl"
           />
         </UFormGroup>
