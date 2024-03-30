@@ -1,5 +1,7 @@
 export default defineAppConfig({
   ui: {
+    primary: 'blue',
+    gray: 'cool',
     strategy: 'override',
     button: {
       color: {
@@ -26,6 +28,12 @@ export default defineAppConfig({
             'ring-gray-500 bg-gray-50 border-gray-300 border border-gray-300 bg-gray-50! text-black'
         }
       }
+    },
+    slideover: {
+      overlay: {
+        background: 'bg-black/70 dark:bg-gray-800/75'
+      },
+      width: 'max-w-[16rem] md:max-w-md'
     }
   }
 })
