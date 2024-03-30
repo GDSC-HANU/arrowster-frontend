@@ -1,3 +1,15 @@
+<script setup lang="ts">
+const client = useSupabaseClient()
+const user = useSupabaseUser()
+const isOpen = ref(false)
+const confirmRoute = `${useRuntimeConfig().public.baseUrl}/confirm`
+
+const logout = async () => {
+  await client.auth.signOut()
+  navigateTo(confirmRoute)
+}
+</script>
+
 <template>
   <div
     class="w-full fixed top-0 bg-white z-50 shadow-md md:px-8 px-4 py-4 text-black"
@@ -32,24 +44,19 @@
               </li>
             </ul>
             <div class="md:gap-4 gap-2 flex flex-col w-full">
-              <nuxt-link to="/sign-up">
-                <UButton
-                  class="w-full items-center justify-center"
-                  label="Sign up"
-                  color="white"
-                  variant="outline"
-                  size="xl"
-                />
-              </nuxt-link>
-              <nuxt-link to="/sign-in">
-                <UButton
-                  class="w-full items-center justify-center"
-                  label="Sign in"
-                  color="blue"
-                  variant="solid"
-                  size="xl"
-                />
-              </nuxt-link>
+              <UButton
+                class="w-full items-center justify-center"
+                label="Sign in"
+                color="blue"
+                variant="solid"
+                size="xl"
+                @click="
+                  client.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: { confirmRoute }
+                  })
+                "
+              />
             </div>
           </div>
         </USlideover>
@@ -66,20 +73,30 @@
           <nuxt-link to="comparison">Comparison</nuxt-link>
         </li>
       </ul>
-      <div class="md:gap-4 gap-2 hidden md:flex">
-        <nuxt-link to="/sign-up">
-          <UButton label="Sign up" color="white" variant="outline" size="xl" />
-        </nuxt-link>
-        <nuxt-link to="/sign-in">
-          <UButton label="Sign in" color="blue" variant="solid" size="xl" />
-        </nuxt-link>
+      <div class="md:gap-4 gap-2 hidden md:flex" v-if="!user">
+        <UButton
+          label="Sign in"
+          color="blue"
+          variant="solid"
+          size="xl"
+          @click="
+            client.auth.signInWithOAuth({
+              provider: 'google',
+              options: { confirmRoute }
+            })
+          "
+        />
       </div>
+      <UButton
+        v-if="user"
+        @click="logout"
+        icon="i-mdi-logout"
+        size="xl"
+        color="primary"
+        variant="outline"
+        label="Logout"
+        :trailing="true"
+      />
     </div>
   </div>
 </template>
-
-<script setup>
-const isOpen = ref(false)
-</script>
-
-<style lang="scss" scoped></style>

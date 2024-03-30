@@ -1,25 +1,31 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  },
+definePageMeta({
+  colorMode: 'light'
 })
+const user = useSupabaseUser()
+const { auth } = useSupabaseClient()
 </script>
 <template>
   <ClientOnly>
-    <UButton
-      :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
-      color="gray"
-      variant="ghost"
-      aria-label="Theme"
-      @click="isDark = !isDark"
-    />
-    <template #fallback>
-      <div class="w-8 h-8" />
-    </template>
+    <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <h2 class="my-6 text-center text-3xl font-bold text-white">
+        Sign in to your account
+      </h2>
+      <CommonLoginCard>
+        <UButton
+          class="mt-3"
+          icon="i-mdi-google"
+          block
+          label="Google Sign In"
+          variant="white"
+          @click="
+            auth.signInWithOAuth({
+              provider: 'google',
+              options: { redirectTo }
+            })
+          "
+        />
+      </CommonLoginCard>
+    </div>
   </ClientOnly>
 </template>
