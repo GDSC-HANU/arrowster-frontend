@@ -44,10 +44,6 @@ const formState: FormState = reactive({
   seletedBudget: null
 })
 
-const selectedCourse = ref(courses[0])
-const selectedGradeLevel = ref(null)
-const selectedCountry = ref(country[0])
-
 const onSubmit = () => {
   console.log(
     formState.gpa,
@@ -119,14 +115,16 @@ const onSubmit = () => {
           />
         </UFormGroup>
 
-        <UButton
-          type="submit"
-          label="Get Started"
-          class="w-full flex justify-center items-center"
-          size="xl"
-          color="blue"
-          variant="solid"
-        />
+        <NuxtLink to="/suitable">
+          <UButton
+            type="submit"
+            label="Get Started"
+            class="w-full flex justify-center items-center"
+            size="xl"
+            color="blue"
+            variant="solid"
+          />
+        </NuxtLink>
       </UForm>
     </div>
     <NuxtImg width="514" src="/images/home/form_img.png" />
