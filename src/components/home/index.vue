@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useUniversityStore } from '@/stores/university'
 import { type FormState } from '@/types'
+const { fetchCountries, country } = useCountry()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 const universityStore = useUniversityStore()
-const { fetchCountries, country } = useCountry()
-console.log(country)
+const router = useRouter()
 
 onMounted(fetchCountries)
 
@@ -50,6 +50,7 @@ const onSubmit = () => {
 
   universityStore.setFormState(formState)
   universityStore.fetchUniversities()
+  router.push('/suitable')
 }
 </script>
 
@@ -114,16 +115,14 @@ const onSubmit = () => {
           />
         </UFormGroup>
 
-        <NuxtLink to="/suitable">
-          <UButton
-            type="submit"
-            label="Get Started"
-            class="w-full flex justify-center items-center"
-            size="xl"
-            color="blue"
-            variant="solid"
-          />
-        </NuxtLink>
+        <UButton
+          type="submit"
+          label="Get Started"
+          class="w-full flex justify-center items-center mt-8"
+          size="xl"
+          color="blue"
+          variant="solid"
+        />
       </UForm>
     </div>
     <NuxtImg width="514" src="/images/home/form_img.png" />

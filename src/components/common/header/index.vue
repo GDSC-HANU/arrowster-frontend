@@ -53,7 +53,7 @@ const logout = async () => {
                 @click="
                   client.auth.signInWithOAuth({
                     provider: 'google',
-                    options: { confirmRoute }
+                    options: { redirectTo: confirmRoute }
                   })
                 "
               />
@@ -82,7 +82,7 @@ const logout = async () => {
           @click="
             client.auth.signInWithOAuth({
               provider: 'google',
-              options: { confirmRoute }
+              options: { redirectTo: confirmRoute }
             })
           "
         />
