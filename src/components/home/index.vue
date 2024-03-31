@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { useUniversityStore } from '@/stores/university'
+import { type FormState } from '@/types'
 const client = useSupabaseClient()
 const user = useSupabaseUser()
-
+const universityStore = useUniversityStore()
 const { fetchCountries, country } = useCountry()
+console.log(country)
+
 onMounted(fetchCountries)
 
 const courses: string[] = [
@@ -26,15 +30,7 @@ const budget: string[] = [
   'More than 20000$'
 ]
 
-const gradeLevel: string[] = [`Bachelor's`, `Master's`]
-
-type FormState = {
-  gpa: number | null
-  selectedCourse: string | null
-  selectedGradeLevel: string | null
-  selectedCountry: string | null
-  seletedBudget: string | null
-}
+const gradeLevel: string[] = ['Bachelor', 'Master']
 
 const formState: FormState = reactive({
   gpa: null,
@@ -49,8 +45,11 @@ const onSubmit = () => {
     formState.gpa,
     formState.selectedCourse,
     formState.selectedGradeLevel,
-    formState.selectedCountry
+    formState.selectedCountry?.value
   )
+
+  universityStore.setFormState(formState)
+  universityStore.fetchUniversities()
 }
 </script>
 
@@ -90,7 +89,7 @@ const onSubmit = () => {
             searchable
             searchable-placeholder="Search a country..."
             v-model="formState.selectedCountry"
-            :options="country"
+            :options="country.map((c) => ({ label: c.name, value: c.id }))"
             variant="outline"
             placeholder="Location"
             size="xl"

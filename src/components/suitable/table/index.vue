@@ -1,3 +1,107 @@
+<script setup lang="ts">
+import { useUniversityStore } from '@/stores/university'
+
+const universityStore = useUniversityStore()
+
+const columns = [
+  {
+    key: 'ntn',
+    label: ''
+  },
+  {
+    key: 'school',
+    label: 'School',
+    sortable: true
+  },
+  {
+    key: 'location',
+    label: 'Location',
+    sortable: true
+  },
+  {
+    key: 'from_fee',
+    label: 'Tuition Fee',
+    sortable: true
+  },
+  {
+    key: 'deadline',
+    label: 'Deadline',
+    sortable: true
+  },
+  {
+    key: 'ranking',
+    label: 'Ranking',
+    sortable: true
+  },
+  {
+    key: 'action'
+  }
+]
+
+const data = [
+  {
+    ntn: 1,
+    name: 'Harvard University ',
+    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
+    sponsor: true,
+    location: 'American',
+    tuition_fee: 'More than 20.000$',
+    from_fee: 20001,
+    to_fee: null,
+    deadline: '01/04/2024',
+    ranking: 1
+  },
+  {
+    ntn: 2,
+    name: 'Whitney Francis ',
+    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
+    sponsor: false,
+    location: 'American',
+    tuition_fee: '10.001 - 20.000$',
+    from_fee: 10001,
+    to_fee: 20000,
+    deadline: '01/04/2024',
+    ranking: 100104
+  },
+  {
+    ntn: 3,
+    name: 'Whitney Francis ',
+    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
+    sponsor: false,
+    location: 'American',
+    tuition_fee: '500 -  1.000$',
+    from_fee: 500,
+    to_fee: 1000,
+    deadline: '01/04/2024',
+    ranking: 9522
+  },
+  {
+    ntn: 4,
+    name: 'Whitney Francis ',
+    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
+    sponsor: false,
+    location: 'American',
+    tuition_fee: '1.001 - 5.000$',
+    from_fee: 1001,
+    to_fee: 5000,
+    deadline: '01/04/2024',
+    ranking: 1
+  },
+  {
+    ntn: 5,
+    name: 'Whitney Francis ',
+    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
+    sponsor: false,
+    location: 'American',
+    tuition_fee: '5.001 - 10.000$',
+    from_fee: 5001,
+    to_fee: 10000,
+    deadline: '01/04/2024',
+    ranking: 1
+  }
+]
+</script>
+
 <template>
   <div class="w-full">
     <div class="flex px-5 lg:px-0 flex-col gap-4">
@@ -17,11 +121,11 @@
           :loading="false"
           :loading-state="{
             icon: 'i-heroicons-arrow-path-20-solid',
-            label: 'Loading...',
+            label: 'Loading...'
           }"
           :progress="{ color: 'primary', animation: 'carousel' }"
           :columns="columns"
-          :rows="data"
+          :rows="universityStore.universities"
         >
           <template #school-data="{ row }">
             <div class="flex items-center gap-[10px]">
@@ -29,7 +133,9 @@
                 <UAvatar size="xs" :src="row.avatar" alt="Avatar" />
               </div>
               <div>
-                <span class="leading-5 text-gray-500 text-sm">{{ row.school }}</span>
+                <span class="leading-5 text-gray-500 text-sm">{{
+                  row.name
+                }}</span>
               </div>
               <div v-if="row.sponsor">
                 <UBadge
@@ -42,6 +148,13 @@
             </div>
           </template>
 
+          <template #location-data="{ row }">
+            <div>
+              <span>
+                {{ row.location.country }}
+              </span>
+            </div>
+          </template>
           <template #from_fee-data="{ row }">
             <div>
               <span>
@@ -66,105 +179,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-const columns = [
-  {
-    key: 'ntn',
-    label: '',
-  },
-  {
-    key: 'school',
-    label: 'School',
-    sortable: true,
-  },
-  {
-    key: 'location',
-    label: 'Location',
-    sortable: true,
-  },
-  {
-    key: 'from_fee',
-    label: 'Tuition Fee',
-    sortable: true,
-  },
-  {
-    key: 'deadline',
-    label: 'Deadline',
-    sortable: true,
-  },
-  {
-    key: 'ranking',
-    label: 'Ranking',
-    sortable: true,
-  },
-  {
-    key: 'action',
-  },
-]
-
-const data = [
-  {
-    ntn: 1,
-    school: 'Harvard University ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: true,
-    location: 'American',
-    tuition_fee: 'More than 20.000$',
-    from_fee: 20001,
-    to_fee: null,
-    deadline: '01/04/2024',
-    ranking: 1,
-  },
-  {
-    ntn: 2,
-    school: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '10.001 - 20.000$',
-    from_fee: 10001,
-    to_fee: 20000,
-    deadline: '01/04/2024',
-    ranking: 100104,
-  },
-  {
-    ntn: 3,
-    school: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '500 -  1.000$',
-    from_fee: 500,
-    to_fee: 1000,
-    deadline: '01/04/2024',
-    ranking: 9522,
-  },
-  {
-    ntn: 4,
-    school: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '1.001 - 5.000$',
-    from_fee: 1001,
-    to_fee: 5000,
-    deadline: '01/04/2024',
-    ranking: 1,
-  },
-  {
-    ntn: 5,
-    school: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '5.001 - 10.000$',
-    from_fee: 5001,
-    to_fee: 10000,
-    deadline: '01/04/2024',
-    ranking: 1,
-  },
-]
-</script>
-
-<style scoped></style>
