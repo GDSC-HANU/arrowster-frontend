@@ -2,8 +2,12 @@
   <ClientOnly>
     <NuxtLayout>
       <div class="mb-12 mt-[120px] grid place-items-center p-0">
-        <div class="max-w-[1280px] w-full flex items-center flex-col">
-          <div class="max-w-[990px] w-full items-center flex flex-col gap-12">
+        <div class="max-w-[1280px] relative w-full flex items-start">
+          <div class="w-[200px] sticky top-[120px]">
+            <suitable-sidebar />
+          </div>
+
+          <div class="pl-10 w-full items-center flex flex-col gap-12">
             <suitable-table />
             <suitable-analysis />
           </div>
@@ -15,7 +19,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  colorMode: 'light'
+  colorMode: 'light',
 })
 </script>
 

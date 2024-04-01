@@ -11,9 +11,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <div
-    class="w-full fixed top-0 bg-white z-50 shadow-md md:px-8 px-4 py-4 text-black"
-  >
+  <div class="w-full fixed top-0 bg-white z-50 shadow-md md:px-8 px-4 py-4 text-black">
     <div
       class="max-w-[1280px] mx-auto my-0 flex md:justify-between justify-start gap-4 md:gap-0 items-center"
     >
@@ -28,9 +26,7 @@ const logout = async () => {
         />
 
         <USlideover v-model="isOpen" side="left">
-          <div
-            class="p-4 flex flex-1 flex-col gap-8 items-center justify-center"
-          >
+          <div class="p-4 flex flex-1 flex-col gap-8 items-center justify-center">
             <CommonHeaderLogo />
             <ul class="flex flex-col gap-8 text-[20px] flex-1 w-full">
               <li>
@@ -53,7 +49,7 @@ const logout = async () => {
                 @click="
                   client.auth.signInWithOAuth({
                     provider: 'google',
-                    options: { redirectTo: confirmRoute }
+                    options: { redirectTo: confirmRoute },
                   })
                 "
               />
@@ -62,17 +58,7 @@ const logout = async () => {
         </USlideover>
       </div>
       <CommonHeaderLogo />
-      <ul class="md:flex gap-12 text-[18px] hidden">
-        <li>
-          <nuxt-link to="/find-college">Find College</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="wishlist">Wishlist</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="comparison">Comparison</nuxt-link>
-        </li>
-      </ul>
+
       <div class="md:gap-4 gap-2 hidden md:flex" v-if="!user">
         <UButton
           label="Sign in"
@@ -82,7 +68,7 @@ const logout = async () => {
           @click="
             client.auth.signInWithOAuth({
               provider: 'google',
-              options: { redirectTo: confirmRoute }
+              options: { redirectTo: confirmRoute },
             })
           "
         />
