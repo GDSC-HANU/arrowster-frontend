@@ -120,6 +120,10 @@ onMounted(fetchCountries)
           :progress="{ color: 'primary', animation: 'carousel' }"
           :columns="columns"
           :rows="universityStore.universities"
+          :empty-state="{
+            icon: 'i-heroicons-circle-stack-20-solid',
+            label: 'No school match, please change your filter data!'
+          }"
         >
           <template #school-data="{ row }">
             <div class="flex items-center gap-[10px]">
