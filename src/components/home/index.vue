@@ -1,38 +1,10 @@
 <script setup lang="ts">
-import { useUniversityStore } from '@/stores/university'
 import { type FormState } from '@/types'
 const { fetchCountries, country } = useCountry()
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const universityStore = useUniversityStore()
-const router = useRouter()
 
 onMounted(fetchCountries)
 
-const courses: string[] = [
-  'Art & Design',
-  'Business & Management',
-  'Computers & Technology',
-  'Criminal Justice & Legal',
-  'Education & Teaching',
-  'Liberal Arts & Humanities',
-  'Nursing & Healthcare',
-  'Psychology & Counseling',
-  'Science & Engineering',
-  'Trade & Careers'
-]
-
-const budget: string[] = [
-  '500 - 1000$',
-  '1001 - 5000$',
-  '5001 - 10000$',
-  '10001 - 20000$',
-  'More than 20000$'
-]
-
-const gradeLevel: string[] = ['Bachelor', 'Master']
-
-const formState: FormState = reactive({
+const formState = reactive<FormState>({
   gpa: null,
   selectedCourse: null,
   selectedGradeLevel: null,
@@ -40,18 +12,12 @@ const formState: FormState = reactive({
   seletedBudget: null
 })
 
-const onSubmit = () => {
-  console.log(
-    formState.gpa,
-    formState.selectedCourse,
-    formState.selectedGradeLevel,
-    formState.selectedCountry?.value
-  )
-
-  universityStore.setFormState(formState)
-  universityStore.fetchUniversities()
-  router.push('/suitable')
-}
+const formStateComputed = computed({
+  get: () => formState,
+  set: (newValue: FormState) => {
+    Object.assign(formState, newValue)
+  }
+})
 </script>
 
 <template>
@@ -65,65 +31,24 @@ const onSubmit = () => {
         Discover and enroll in
         <span class="text-blue-700">International Colleges</span>
       </h1>
-      <UForm class="space-y-8 w-full" @submit="onSubmit">
-        <UFormGroup name="gpa">
-          <UInput
-            v-model="formState.gpa"
+      <Form
+        v-model="formStateComputed"
+        :courses="courses"
+        :country="country"
+        :gradeLevel="gradeLevel"
+        :budget="budget"
+      >
+        <template #submit-button>
+          <UButton
+            type="submit"
+            label="Get Started"
+            class="w-full flex justify-center items-center mt-8"
             size="xl"
-            color="white"
-            variant="outline"
-            placeholder="Your GPA"
+            color="blue"
+            variant="solid"
           />
-        </UFormGroup>
-
-        <UFormGroup name="course-preference">
-          <USelectMenu
-            v-model="formState.selectedCourse"
-            :options="courses"
-            variant="outline"
-            placeholder="Course Preference"
-            size="xl"
-          />
-        </UFormGroup>
-        <UFormGroup name="course-preference">
-          <USelectMenu
-            searchable
-            searchable-placeholder="Search a country..."
-            v-model="formState.selectedCountry"
-            :options="country.map((c) => ({ label: c.name, value: c.id }))"
-            variant="outline"
-            placeholder="Location"
-            size="xl"
-          />
-        </UFormGroup>
-        <UFormGroup name="course-preference">
-          <USelectMenu
-            v-model="formState.selectedGradeLevel"
-            :options="gradeLevel"
-            variant="outline"
-            placeholder="Grade Level"
-            size="xl"
-          />
-        </UFormGroup>
-        <UFormGroup name="course-preference">
-          <USelectMenu
-            v-model="formState.seletedBudget"
-            :options="budget"
-            variant="outline"
-            placeholder="Tuition Budget (in USD/year)"
-            size="xl"
-          />
-        </UFormGroup>
-
-        <UButton
-          type="submit"
-          label="Get Started"
-          class="w-full flex justify-center items-center mt-8"
-          size="xl"
-          color="blue"
-          variant="solid"
-        />
-      </UForm>
+        </template>
+      </Form>
     </div>
     <NuxtImg width="514" src="/images/home/form_img.png" />
   </div>

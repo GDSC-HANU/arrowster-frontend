@@ -13,8 +13,6 @@ export const useUniversityStore = defineStore('university', {
       this.formState = newFormState
     },
     async fetchUniversities() {
-      console.log(this.formState)
-
       const client = useSupabaseClient()
       if (!this.formState) return
       const { data, error } = await client
@@ -25,7 +23,7 @@ export const useUniversityStore = defineStore('university', {
         .filter('tuition_fee', 'lte', this.formState.seletedBudget)
         .filter('location_id', 'eq', this.formState.selectedCountry?.value)
         // .filter('course_category', 'eq', this.formState.selectedCourse)
-        .limit(5)
+        .limit(3)
 
       if (error) {
         console.error(error)
@@ -33,6 +31,7 @@ export const useUniversityStore = defineStore('university', {
       }
 
       this.universities = data
+      return data
     }
   },
   persist: {

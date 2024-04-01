@@ -8,10 +8,30 @@ const logout = async () => {
   await client.auth.signOut()
   navigateTo(confirmRoute)
 }
+
+console.log('user', user.value?.email)
+
+const items = [
+  [
+    {
+      label: `${user.value?.email}`,
+      slot: 'account',
+      disabled: true
+    }
+  ],
+  [
+    {
+      label: 'Sign out',
+      icon: 'i-mdi-logout'
+    }
+  ]
+]
 </script>
 
 <template>
-  <div class="w-full fixed top-0 bg-white z-50 shadow-md md:px-8 px-4 py-4 text-black">
+  <div
+    class="w-full fixed top-0 bg-white z-50 shadow-md md:px-8 px-4 py-4 text-black"
+  >
     <div
       class="max-w-[1280px] mx-auto my-0 flex md:justify-between justify-start gap-4 md:gap-0 items-center"
     >
@@ -26,7 +46,9 @@ const logout = async () => {
         />
 
         <USlideover v-model="isOpen" side="left">
-          <div class="p-4 flex flex-1 flex-col gap-8 items-center justify-center">
+          <div
+            class="p-4 flex flex-1 flex-col gap-8 items-center justify-center"
+          >
             <CommonHeaderLogo />
             <ul class="flex flex-col gap-8 text-[20px] flex-1 w-full">
               <li>
@@ -49,7 +71,7 @@ const logout = async () => {
                 @click="
                   client.auth.signInWithOAuth({
                     provider: 'google',
-                    options: { redirectTo: confirmRoute },
+                    options: { redirectTo: confirmRoute }
                   })
                 "
               />
@@ -68,21 +90,43 @@ const logout = async () => {
           @click="
             client.auth.signInWithOAuth({
               provider: 'google',
-              options: { redirectTo: confirmRoute },
+              options: { redirectTo: confirmRoute }
             })
           "
         />
       </div>
-      <UButton
+      <UDropdown
         v-if="user"
-        @click="logout"
-        icon="i-mdi-logout"
-        size="xl"
-        color="primary"
-        variant="outline"
-        label="Logout"
-        :trailing="true"
-      />
+        :items="items"
+        :ui="{ item: { disabled: 'cursor-text select-text' } }"
+        :popper="{ placement: 'bottom-end' }"
+      >
+        <UAvatar :src="user.user_metadata.avatar_url" size="md" />
+
+        <template #account="{ item }">
+          <div class="text-left">
+            <p>Signed in as</p>
+            <p class="truncate font-medium text-gray-900 dark:text-white">
+              {{ item.label }}
+            </p>
+          </div>
+        </template>
+
+        <template #item="{ item }">
+          <UButton
+            class="p-1 w-full items-center justify-center"
+            v-if="user"
+            @click="logout"
+            icon="i-mdi-logout"
+            size="sm"
+            color="primary"
+            variant="ghost"
+            :label="item.label"
+            :trailing="true"
+          />
+        </template>
+      </UDropdown>
+      <!-- -->
     </div>
   </div>
 </template>

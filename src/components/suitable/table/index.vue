@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { useUniversityStore } from '@/stores/university'
+import { type FormState } from '@/types'
 
+const { fetchCountries, country } = useCountry()
 const universityStore = useUniversityStore()
+const isOpen = ref(false)
+
+const closeModal = () => {
+  isOpen.value = false
+}
 
 const columns = [
   {
@@ -37,69 +44,7 @@ const columns = [
     key: 'action'
   }
 ]
-
-const data = [
-  {
-    ntn: 1,
-    name: 'Harvard University ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: true,
-    location: 'American',
-    tuition_fee: 'More than 20.000$',
-    from_fee: 20001,
-    to_fee: null,
-    deadline: '01/04/2024',
-    ranking: 1
-  },
-  {
-    ntn: 2,
-    name: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '10.001 - 20.000$',
-    from_fee: 10001,
-    to_fee: 20000,
-    deadline: '01/04/2024',
-    ranking: 100104
-  },
-  {
-    ntn: 3,
-    name: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '500 -  1.000$',
-    from_fee: 500,
-    to_fee: 1000,
-    deadline: '01/04/2024',
-    ranking: 9522
-  },
-  {
-    ntn: 4,
-    name: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '1.001 - 5.000$',
-    from_fee: 1001,
-    to_fee: 5000,
-    deadline: '01/04/2024',
-    ranking: 1
-  },
-  {
-    ntn: 5,
-    name: 'Whitney Francis ',
-    avatar: 'https://avatars.githubusercontent.com/u/739984?v=4',
-    sponsor: false,
-    location: 'American',
-    tuition_fee: '5.001 - 10.000$',
-    from_fee: 5001,
-    to_fee: 10000,
-    deadline: '01/04/2024',
-    ranking: 1
-  }
-]
+onMounted(fetchCountries)
 </script>
 
 <template>
@@ -110,10 +55,59 @@ const data = [
           Best Suitable International Colleges
         </h1>
 
-        <nuxt-link to="/all-colleges">
-          <span class="font-medium text-sm leading-5">View all Colleges</span>
-          <Icon name="uil:arrow-up-right" class="w-5 h-5" color="black" />
-        </nuxt-link>
+        <UButton
+          color="gray"
+          variant="ghost"
+          label="Change filter data"
+          size="sm"
+          icon="i-heroicons-pencil"
+          class="text-xs font-medium"
+          @click="isOpen = true"
+        />
+        <UModal v-model="isOpen">
+          <UCard
+            :ui="{
+              ring: '',
+              divide: 'divide-y divide-gray-100 dark:divide-gray-800'
+            }"
+          >
+            <template #header>
+              <h1>Edit filter data</h1>
+            </template>
+
+            <Form
+              v-model="universityStore.formState as FormState"
+              :courses="courses"
+              :country="country"
+              :gradeLevel="gradeLevel"
+              :budget="budget"
+              @submit="closeModal"
+            >
+              <template #submit-button>
+                <div class="flex mt-0 justify-end gap-4">
+                  <UButton
+                    color="gray"
+                    type="button"
+                    label="Cancel"
+                    class="flex justify-center items-center"
+                    size="xl"
+                    variant="solid"
+                    @click="isOpen = false"
+                  />
+                  <UButton
+                    type="submit"
+                    label="Save"
+                    class="flex justify-center items-center"
+                    size="xl"
+                    color="blue"
+                    variant="solid"
+                    @submit="closeModal"
+                  />
+                </div>
+              </template>
+            </Form>
+          </UCard>
+        </UModal>
       </div>
 
       <div class="w-full border-[1px] border-gray-300 rounded-md">
@@ -175,6 +169,15 @@ const data = [
             >
           </template>
         </UTable>
+        <div class="flex items-center justify-center border-t">
+          <UButton
+            color="gray"
+            variant="ghost"
+            label="View all result"
+            class="py-4 rounded-md"
+            size="xl"
+          />
+        </div>
       </div>
     </div>
   </div>
