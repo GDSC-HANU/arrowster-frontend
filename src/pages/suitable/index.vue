@@ -1,9 +1,9 @@
 <template>
   <ClientOnly>
     <NuxtLayout>
-      <div class="mb-12 mt-[120px] grid place-items-center p-0">
+      <div class="mb-12 mt-24 md:mt-[100px] grid place-items-center p-0">
         <div class="max-w-[1280px] relative w-full flex items-start">
-          <div class="w-[200px] sticky top-[120px]">
+          <div class="md:block hidden w-[200px] sticky top-[100px]">
             <suitable-sidebar />
           </div>
 

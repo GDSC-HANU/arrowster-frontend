@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-4">
+  <div class="w-full px-4">
     <nav class="w-full">
       <ul class="flex-col flex gap-4 whitespace-nowrap text-[18px]">
         <li class="w-full">
