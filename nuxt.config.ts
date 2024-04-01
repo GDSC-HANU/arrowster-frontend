@@ -37,7 +37,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+      baseUrl:
+        process.env.VERCEL_ENV === 'production'
+          ? process.env.BASE_URL
+          : 'http://localhost:3000'
     }
   },
   ui: {
