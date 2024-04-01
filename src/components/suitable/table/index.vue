@@ -72,7 +72,7 @@ onMounted(fetchCountries)
             }"
           >
             <template #header>
-              <h1>Edit filter data</h1>
+              <h1 class="text-3xl text-center">Edit filter data</h1>
             </template>
 
             <Form
