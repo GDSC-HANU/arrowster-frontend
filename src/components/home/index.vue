@@ -9,7 +9,7 @@ const formState = reactive<FormState>({
   selectedCourse: null,
   selectedGradeLevel: null,
   selectedCountry: null,
-  seletedBudget: null
+  selectedBudget: null
 })
 
 const formStateComputed = computed({

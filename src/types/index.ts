@@ -3,7 +3,7 @@ export type FormState = {
   selectedCourse: string | null
   selectedGradeLevel: string | null
   selectedCountry: SelectedCountry | null
-  seletedBudget: string | null
+  selectedBudget: string | null
 }
 
 type SelectedCountry = {
