@@ -23,7 +23,8 @@
             to="/find-college"
           >
             <UButton
-              variant="default"
+              variant="ghost"
+              color="gray"
               class="w-full"
               size="xl"
               icon="i-heroicons-magnifying-glass"
@@ -38,7 +39,8 @@
             to="/find-college"
           >
             <UButton
-              variant="default"
+              variant="ghost"
+              color="gray"
               class="w-full"
               size="xl"
               icon="i-heroicons-arrows-right-left"
