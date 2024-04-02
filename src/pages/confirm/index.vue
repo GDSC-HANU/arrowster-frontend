@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { useFormStateStore } from '~/stores/form'
+
 definePageMeta({
   colorMode: 'light'
 })
 const user = useSupabaseUser()
+const router = useRouter()
+const formStateStore = useFormStateStore()
 
 watch(
   user,
@@ -16,7 +20,7 @@ watch(
 </script>
 
 <template>
-  <div>
-    <p class="u-text-black">Redirecting...</p>
+  <div class="min-h-screen flex justify-center items-center">
+    <p class="text-3xl">Redirecting...</p>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLayout>
+    <NuxtLayout layout="default">
       <Home />
     </NuxtLayout>
   </div>
@@ -8,6 +8,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-  colorMode: 'light',
+  colorMode: 'light'
 })
 </script>
