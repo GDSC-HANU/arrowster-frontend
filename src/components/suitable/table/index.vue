@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useUniversityStore } from '@/stores/university'
 import { type FormState } from '@/types'
+import { useFormStateStore } from '@/stores/form'
 
 const { fetchCountries, country } = useCountry()
 const universityStore = useUniversityStore()
+const formStateStore = useFormStateStore()
 const isOpen = ref(false)
 
 const closeModal = () => {
@@ -76,7 +78,7 @@ onMounted(fetchCountries)
             </template>
 
             <Form
-              v-model="universityStore.formState as FormState"
+              v-model="formStateStore.formState as FormState"
               :courses="courses"
               :country="country"
               :gradeLevel="gradeLevel"
